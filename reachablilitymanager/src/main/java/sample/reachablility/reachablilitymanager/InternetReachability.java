@@ -4,6 +4,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.webkit.URLUtil;
 
+/**
+ * Contains methods related to the internet network reachability
+ */
 class InternetReachability implements ConnectivityResultNotifier {
 
   private ConnectivityResultNotifier connectivityResultNotifier;
@@ -27,6 +30,7 @@ class InternetReachability implements ConnectivityResultNotifier {
 
           ConnectToURLAsync connectToURLAsync = new ConnectToURLAsync(this);
           connectToURLAsync.execute(url);
+          return;
         }
       }
     }

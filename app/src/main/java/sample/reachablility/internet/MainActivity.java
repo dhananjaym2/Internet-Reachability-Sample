@@ -49,11 +49,9 @@ public class MainActivity extends AppCompatActivity implements
    * @param v The view that was clicked.
    */
   @Override public void onClick(View v) {
-    switch (v.getId()) {
-      case R.id.buttonCheckReachability:
-        textViewReachabilityResultValue.setText("");
-        requestReachablitityFromLibrary();
-        break;
+    if (v.getId() == R.id.buttonCheckReachability) {
+      textViewReachabilityResultValue.setText("");
+      requestReachablitityFromLibrary();
     }
   }
 

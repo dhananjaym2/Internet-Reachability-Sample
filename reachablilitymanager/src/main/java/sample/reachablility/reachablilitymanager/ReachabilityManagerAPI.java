@@ -6,6 +6,10 @@ import android.content.Context;
 import static sample.reachablility.reachablilitymanager.ReachabilityManagerAPIConnectivityResultNotifier.REACHABLE;
 import static sample.reachablility.reachablilitymanager.ReachabilityManagerAPIConnectivityResultNotifier.UNREACHABLE;
 
+/**
+ * Used to check the reachability of defined network interfaces, which can be extended to support
+ * more. Currently Internet reachability support is available.
+ */
 public class ReachabilityManagerAPI implements ConnectivityResultNotifier {
 
   private ReachabilityManagerAPIConnectivityResultNotifier
@@ -25,6 +29,7 @@ public class ReachabilityManagerAPI implements ConnectivityResultNotifier {
     if (!url.isEmpty()) {
       InternetReachability internetReachability = new InternetReachability();
       internetReachability.isUrlReachable(url, context, this);
+      return;
     } else {
       onResultPublished(false);
     }

@@ -73,10 +73,8 @@ class ConnectToURLAsync extends AsyncTask<String, Void, Boolean> {
         // TODO check HTTP status.
         return true;
       }
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (MalformedURLException ignored) {
+    } catch (IOException ignored) {
     }
 
     return false;
