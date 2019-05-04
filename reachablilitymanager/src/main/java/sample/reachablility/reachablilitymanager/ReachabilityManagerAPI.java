@@ -7,8 +7,10 @@ import static sample.reachablility.reachablilitymanager.ReachabilityManagerAPICo
 import static sample.reachablility.reachablilitymanager.ReachabilityManagerAPIConnectivityResultNotifier.UNREACHABLE;
 
 /**
- * Used to check the reachability of defined network interfaces, which can be extended to support
- * more. Currently Internet reachability support is available.
+ * Used to check the reachability of supported network interfaces, which can be extended to support
+ * more. Currently Internet reachability support is available via {@link
+ * ReachabilityManagerAPI#isInternetUrlReachable(String, Context, ReachabilityManagerAPIConnectivityResultNotifier)}.
+ * Notifies the result via ConnectivityResultNotifier.onResultPublished(Boolean)
  */
 public class ReachabilityManagerAPI implements ConnectivityResultNotifier {
 
