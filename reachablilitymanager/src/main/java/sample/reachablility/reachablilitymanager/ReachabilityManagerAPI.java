@@ -1,24 +1,48 @@
 package sample.reachablility.reachablilitymanager;
 
+import android.Manifest;
 import android.content.Context;
-import sample.reachablility.reachablilitymanager.constants.AppConstants;
 
-public class ReachabilityManagerAPI {
+import static sample.reachablility.reachablilitymanager.ReachabilityManagerAPIConnectivityResultNotifier.REACHABLE;
+import static sample.reachablility.reachablilitymanager.ReachabilityManagerAPIConnectivityResultNotifier.UNREACHABLE;
+
+public class ReachabilityManagerAPI implements ConnectivityResultNotifier {
+
+  private ReachabilityManagerAPIConnectivityResultNotifier
+      reachabilityManagerAPIConnectivityResultNotifier;
 
   /**
-   * Checks if the Internet network URL is reachable or not
+   * Checks if the network URL is reachable or not. Requires {@link
+   * Manifest.permission#INTERNET} and {@link Manifest.permission#ACCESS_NETWORK_STATE} permission
+   * to work. Notifies the result via {@link ConnectivityResultNotifier#onResultPublished(Boolean)}
    *
    * @param url URL as a {@link String}
-   * @return true if the url is reachable else false
    */
-  public String isInternetUrlReachable(String url, Context context) {
+  public void isInternetUrlReachable(String url, Context context,
+      ReachabilityManagerAPIConnectivityResultNotifier reachabilityManagerAPIConnectivityResultNotifier) {
+    this.reachabilityManagerAPIConnectivityResultNotifier =
+        reachabilityManagerAPIConnectivityResultNotifier;
     if (!url.isEmpty()) {
-      if (Internet.isUrlReachable(url, context)) {
-        return AppConstants.REACHABLE;
-      }
+      InternetReachability internetReachability = new InternetReachability();
+      internetReachability.isUrlReachable(url, context, this);
     } else {
-      return AppConstants.UNREACHABLE;
+      onResultPublished(false);
     }
-    return AppConstants.UNREACHABLE;
+    onResultPublished(false);
+  }
+
+  /**
+   * Publishes the result of connection status.
+   *
+   * @param result true if the connection is successful
+   */
+  @Override public void onResultPublished(Boolean result) {
+    if (result) {
+      reachabilityManagerAPIConnectivityResultNotifier.onConnectivityResultAvailable(
+          REACHABLE);
+    } else {
+      reachabilityManagerAPIConnectivityResultNotifier.onConnectivityResultAvailable(
+          UNREACHABLE);
+    }
   }
 }
