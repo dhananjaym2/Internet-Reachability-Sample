@@ -61,4 +61,16 @@
       tools:text="ReachabilityResultValue"
       />
 
+  <ProgressBar
+      android:id="@+id/progressBarWaitingForResult"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textViewReachabilityResultValue"
+      tools:visibility="visible"
+      style="@style/Widget.AppCompat.ProgressBar"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import sample.reachablility.reachablilitymanager.ReachabilityManagerAPI;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements
   private EditText editTextUrl;
   private TextView textViewReachabilityResultValue;
   private ReachabilityManagerAPI reachabilityManagerAPI;
+  private ProgressBar progressBarWaitingForResult;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +28,14 @@ public class MainActivity extends AppCompatActivity implements
 
   private void initializeViews() {
     editTextUrl = findViewById(R.id.editTextUrl);
+
     Button buttonCheckReachability = findViewById(R.id.buttonCheckReachability);
     buttonCheckReachability.setOnClickListener(this);
+
     textViewReachabilityResultValue = findViewById(R.id.textViewReachabilityResultValue);
+
+    progressBarWaitingForResult = findViewById(R.id.progressBarWaitingForResult);
+    progressBarWaitingForResult.setVisibility(View.GONE);
   }
 
   /**
@@ -39,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements
    */
   @Override public void onConnectivityResultAvailable(String reachabilityStatus) {
     if (reachabilityStatus != null) {
+      progressBarWaitingForResult.setVisibility(View.GONE);
       textViewReachabilityResultValue.setText(reachabilityStatus);
     }
   }
@@ -51,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements
   @Override public void onClick(View v) {
     if (v.getId() == R.id.buttonCheckReachability) {
       textViewReachabilityResultValue.setText("");
+      progressBarWaitingForResult.setVisibility(View.VISIBLE);
       requestReachablitityFromLibrary();
     }
   }

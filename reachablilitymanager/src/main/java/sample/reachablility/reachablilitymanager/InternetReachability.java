@@ -49,8 +49,9 @@ class InternetReachability implements ConnectivityResultNotifier {
     ConnectivityManager connectivityManager =
         (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-    return connectivityManager != null && connectivityManager.getActiveNetworkInfo()
-        .isConnected();
+    return connectivityManager != null
+        && connectivityManager.getActiveNetworkInfo() != null
+        && connectivityManager.getActiveNetworkInfo().isConnected();
   }
 
   /**
