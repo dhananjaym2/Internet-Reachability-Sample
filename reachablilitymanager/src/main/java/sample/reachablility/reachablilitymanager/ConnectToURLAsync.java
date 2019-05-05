@@ -70,8 +70,14 @@ class ConnectToURLAsync extends AsyncTask<String, Void, Boolean> {
       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
       if (bufferedReader.readLine() != null) {
+        bufferedReader.close();
+        inputStream.close();
         // TODO check HTTP status.
         return true;
+      }
+      bufferedReader.close();
+      if (inputStream != null) {
+        inputStream.close();
       }
     } catch (MalformedURLException ignored) {
     } catch (IOException ignored) {
